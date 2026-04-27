@@ -10,7 +10,7 @@ http:
     type: json
     data: |
       {
-        "username": "node_1",
+        "username": "node_2",
         "password": "1234567890",
         "mountpoint": ""
       }

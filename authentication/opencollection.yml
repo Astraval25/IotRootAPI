@@ -13,6 +13,174 @@ config:
         username: ""
         password: ""
       bypassProxy: ""
+
+docs:
+  content: |-
+    
+    ### Common 
+    - status: true/false
+    - code: response code
+    - message: response message (use to display for user)
+    - data: response data (actual data)
+
+    ### APIs
+    #### Auth APIs
+    POST /api/auth/login
+    - request
+    ```json
+    {
+      "email":"admin@astraval.com",
+      "password":"Admin@123"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 200,
+      "message": "Login successful",
+      "data": {
+        "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJhZG1pbkBhc3RyYXZhbC5jb20iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzc3Mjc5MDgyLCJleHAiOjE3NzcyODI2ODIsImp0aSI6IjQ0NjBmOTkzLTFhMDctNGM3MC04NWM0LWE2NDFlNjRmNTZmOSJ9.R3ChhdrfLcT8jtiuAw-ywhE1PktEP2yJW31DbEhNCC4",
+        "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE3NzcyNzkwODIsImV4cCI6MTc3NzM2NTQ4MiwianRpIjoiYTc1OWYwNjEtNDc3YS00ZTk5LTg4ZjktNzdlMDdiNTYyYzUzIn0.wqpwYusSr2bsjCYAsz5BybOXhqpLzWBvcpnu9x9mcvU",
+        "tokenType": "Bearer",
+        "expiresInSeconds": 3600,
+        "refreshExpiresInSeconds": 86400
+      }
+    }
+    ```
+    ```json 
+    {
+      "status": false,
+      "code": 401,
+      "message": "Account is not verified. Verify OTP first.",
+      "data": null
+    }
+    ```
+    POST /api/auth/register
+    - request
+    ```json
+    {
+      "email":"admin@astraval.com",
+      "password":"Admin@123"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 201,
+      "message": "User registered successfully. Verify OTP to activate account.",
+      "data": {
+        "userId": 4,
+        "email": "karthikeyan.aas@gmail.com",
+        "otpExpiresAt": "2026-04-27T14:20:20.7655281",
+        "otpEmailSent": true
+      }
+    }
+    ```
+    POST /api/auth/verify-otp
+    - request
+    ```json
+    {
+      "email":"admin@astraval.com",
+      "otp":"310889"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 200,
+      "message": "Account verified successfully",
+      "data": null
+    }
+    ```
+    POST /api/auth/resend-otp
+    - request
+    ```json 
+    {
+      "email":"karthikeyan.aas@gmail.com"
+    }
+    ```
+    - response
+    ```json 
+    {
+      "status": true,
+      "code": 200,
+      "message": "OTP resent successfully",
+      "data": {
+        "userId": 4,
+        "email": "karthikeyan.aas@gmail.com",
+        "otpExpiresAt": "2026-04-27T14:27:49.1039558",
+        "otpEmailSent": true
+      }
+    }
+    ```
+    ```json
+    {
+      "status": false,
+      "code": 400,
+      "message": "User is already verified",
+      "data": null
+    }
+    ```
+    POST /api/auth/refresh-token
+    - request
+    ```json
+    {
+      "refreshToken":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE3NzcyNzk1MzIsImV4cCI6MTc3NzM2NTkzMiwianRpIjoiOTI1NzEwNTctNmI0OS00OTIyLTk2YjQtZThmOGExOGYwMTg1In0.HrBnnpdyxPj43l9q0fVeXOqOeXgNlEa5Om5NppD9BAA"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 200,
+      "message": "Token refreshed successfully",
+      "data": {
+        "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJhZG1pbkBhc3RyYXZhbC5jb20iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzc3Mjc5NTMyLCJleHAiOjE3NzcyODMxMzIsImp0aSI6IjM3YjY5ZmZkLTdhZjAtNGM1My05Njk0LTMwN2RlZDkzNzBiZCJ9.IMEoA2KrUjUgfQUdleMZ2YsDeb_quO5Sqr8AGh5l0fM",
+        "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE3NzcyNzk1MzIsImV4cCI6MTc3NzM2NTkzMiwianRpIjoiOTI1NzEwNTctNmI0OS00OTIyLTk2YjQtZThmOGExOGYwMTg1In0.HrBnnpdyxPj43l9q0fVeXOqOeXgNlEa5Om5NppD9BJA",
+        "tokenType": "Bearer",
+        "expiresInSeconds": 3600,
+        "refreshExpiresInSeconds": 86400
+      }
+    }
+    ```
+    POST /api/auth/forgot-password
+    - request
+    ```json
+    {
+      "email":"admin@astraval.com"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 200,
+      "message": "If the account exists, OTP has been sent",
+      "data": null
+    }
+    ```
+    POST /api/auth/reset-password
+    - request
+    ```json
+    {
+      "email":"admin@astraval.com",
+      "otp":"",
+      "newPassword":"newPassword",
+    }
+    ```
+    - response
+    ```json 
+    {
+      "status": true,
+      "code": 200,
+      "message": "Password reset successful",
+      "data": null
+    }
+    ```
+  type: text/markdown
 bundled: false
 extensions:
   bruno:

@@ -10,8 +10,8 @@ http:
     type: json
     data: |-
       {
-        "email":"admin@astraval.com",
-        "otp":"310889"
+        "email":"karthikeyan.aas@gmail.com",
+        "otp":"158508"
       }
   auth:
     type: bearer

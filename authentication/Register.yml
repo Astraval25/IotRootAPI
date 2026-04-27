@@ -10,7 +10,7 @@ http:
     type: json
     data: |-
       {
-        "email":"admin@astraval.com",
+        "email":"karthikeyan.aas@gmail.com",
         "password":"Admin@123"
       }
   auth:

@@ -13,6 +13,80 @@ config:
         username: ""
         password: ""
       bypassProxy: ""
+
+docs:
+  content: |-
+    ### ACL APIs
+    GET /api/devices/:deviceId/rules
+    -- response
+    ```json
+    {
+      "status": true,
+      "code": 200,
+      "message": "Rules fetched",
+      "data": [
+        {
+          "deviceId": 6,
+          "id": 15,
+          "permission": "publish",
+          "topic": "/iot/3/sensor/msg"
+        },
+        {
+          "deviceId": 6,
+          "id": 16,
+          "permission": "readwrite",
+          "topic": "/iot/3/tv/+/humidity"
+        },
+        {
+          "deviceId": 6,
+          "id": 17,
+          "permission": "subscribe",
+          "topic": "/iot/3/sensors/+/humidity"
+        }
+      ]
+    }
+    ```
+
+    POST /api/devices/:deviceId/rules
+    - request
+    ```json
+    {
+      "topic": "sensors/+/humidity",
+      "permission": "readwrite"
+    }
+    ```
+    - response
+    ```json
+    {
+      "status": true,
+      "code": 201,
+      "message": "Rule added",
+      "data": {
+        "deviceId": 6,
+        "id": 16,
+        "permission": "readwrite", // publish, subscribe, readwrite
+        "topic": "/iot/3/sensors/+/humidity"
+      }
+    }
+    ```
+    ```json
+    {
+      "status": false,
+      "code": 400,
+      "message": "Malformed request body",
+      "data": null
+    }
+    ```
+    PUT /api/devices/:deviceId/rules/:ruleId
+    - request 
+    ```json
+    {
+      "topic": "sensor/msg",
+      "permission": "publish"
+    }
+    ```
+    DELETE /api/devices/:deviceId/rules/:rulesId
+  type: text/markdown
 bundled: false
 extensions:
   bruno:

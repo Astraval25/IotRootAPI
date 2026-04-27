@@ -5,10 +5,13 @@ info:
 
 http:
   method: DELETE
-  url: "{{host}}/api/devices/:id"
+  url: "{{host}}/api/devices/:deviceId/rules/:rulesId"
   params:
-    - name: id
-      value: "1"
+    - name: rulesId
+      value: ""
+      type: path
+    - name: deviceId
+      value: ""
       type: path
   auth:
     type: bearer
