@@ -1,0 +1,21 @@
+info:
+  name: Delete a Device ACL
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{host}}/api/devices/:id"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  auth:
+    type: bearer
+    token: "{{adminToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

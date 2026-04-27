@@ -1,0 +1,29 @@
+info:
+  name: Update a device
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{host}}/api/devices/:id"
+  params:
+    - name: id
+      value: "2"
+      type: path
+  body:
+    type: json
+    data: |
+      {
+        "username": "node 2",
+        "password": "123456789",
+        "mountpoint": ""
+      }
+  auth:
+    type: bearer
+    token: "{{authToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

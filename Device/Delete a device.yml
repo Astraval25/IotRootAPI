@@ -1,0 +1,21 @@
+info:
+  name: Delete a device
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{host}}/api/devices/:id"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  auth:
+    type: bearer
+    token: "{{authToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

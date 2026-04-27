@@ -1,0 +1,47 @@
+info:
+  name: Login
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host}}/api/auth/login"
+  body:
+    type: json
+    data: |-
+      {
+        "email":"admin@astraval.com",
+        "password":"Admin@123"
+      }
+  auth:
+    type: bearer
+    token: "{{adminToken}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Bruno Post Response Script
+        // Use res.body instead of bru.response.getBody()
+
+        const data = typeof res.body === "string"
+          ? JSON.parse(res.body)
+          : res.body;
+
+        // Extract values
+        const accessToken = data.data.accessToken;
+        const refreshToken = data.data.refreshToken;
+        const tokenType = data.data.tokenType;
+
+        // Save globally
+        bru.setGlobalEnvVar("authToken", accessToken);
+        bru.setGlobalEnvVar("refreshToken", refreshToken);
+        bru.setGlobalEnvVar("tokenType", tokenType);
+
+        console.log("Tokens saved successfully");
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

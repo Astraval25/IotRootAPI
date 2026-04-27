@@ -1,0 +1,21 @@
+info:
+  name: Get Device Details
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{host}}/api/devices/:deviceId"
+  params:
+    - name: deviceId
+      value: "6"
+      type: path
+  auth:
+    type: bearer
+    token: "{{authToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

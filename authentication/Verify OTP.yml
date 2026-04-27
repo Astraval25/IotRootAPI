@@ -1,0 +1,24 @@
+info:
+  name: Verify OTP
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{host}}/api/auth/verify-otp"
+  body:
+    type: json
+    data: |-
+      {
+        "email":"admin@astraval.com",
+        "otp":"310889"
+      }
+  auth:
+    type: bearer
+    token: "{{adminToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
